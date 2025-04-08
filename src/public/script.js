@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
   const pokemonContainer = document.getElementById("pokemon-container");
-
-  // Mapa de traducción de tipos
   const typeTranslation = {
     grass: "Planta",
     fire: "Fuego",
