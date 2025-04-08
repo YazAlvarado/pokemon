@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "14"
+          node-version: "16"  # Cambia de 14 a 16 o 18 para mayor compatibilidad
       - name: Cache node_modules
         uses: actions/cache@v3
         with:
@@ -38,7 +38,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "14"
+          node-version: "16"  # Asegúrate de usar la misma versión en ambas etapas
       - name: Cache node_modules
         uses: actions/cache@v3
         with:
