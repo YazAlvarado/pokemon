@@ -11,23 +11,19 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "16"  # Cambia de 14 a 16 o 18 para mayor compatibilidad
-      - name: Cache node_modules
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-modules-
+          node-version: "16"  # Puedes usar la versión 16 o la que sea más adecuada
       - name: Install dependencies
-        run: npm install
+        run: npm install  # Asegúrate de que se instalen todas las dependencias correctamente
+      - name: Change file permissions for ESLint
+        run: chmod +x node_modules/.bin/eslint  # Ajusta los permisos de ESLint
       - name: Run ESLint
-        run: npx eslint .
+        run: npx eslint .  # Ejecuta ESLint en el proyecto
 
   test:
     runs-on: ubuntu-latest
@@ -38,13 +34,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "16"  # Asegúrate de usar la misma versión en ambas etapas
-      - name: Cache node_modules
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-modules-
+          node-version: "16"
+      - name: Install dependencies
+        run: npm install
       - name: Run tests
         run: npm test
