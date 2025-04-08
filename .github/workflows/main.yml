@@ -11,13 +11,19 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "14"
+          node-version: "16"  # Cambia de 14 a 16 o 18 para mayor compatibilidad
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
       - name: Install dependencies
         run: npm install
       - name: Run ESLint
@@ -32,8 +38,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "14"
-      - name: Install dependencies
-        run: npm install
+          node-version: "16"  # Asegúrate de usar la misma versión en ambas etapas
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
       - name: Run tests
         run: npm test
